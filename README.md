@@ -1,5 +1,4 @@
-## Refleksi 1
----
+## --- Refleksi 1 ---
 ## > Clean code practices yang diimplementasikan:
 ### 1.) Struktur package yang mengikuti konvensi Spring Boot
 - Menggunakan struktur controller, service, repository, dan model membantu dalam memisahkan tanggung jawab (separation of concerns).
@@ -106,3 +105,76 @@ public void deleteById(String id) {
 Manfaatnya:
 - Membantu melacak aksi user untuk debugging dan keamanan.
 - Bisa digunakan untuk monitoring aplikasi.
+
+---
+
+## --- Refleksi 2 ---
+## > 1. Menulis Unit Test & Code Coverage
+### Bagaimana perasaanmu setelah menulis unit test?
+- Unit testing memberikan kepercayaan diri bahwa setiap komponen program bekerja sesuai harapan.
+- Menulis unit test membantu memahami program lebih dalam dan berpikir tentang edge case yang mungkin akan terjadi.
+- Proses membuat unit test bisa memakan waktu, dan terkadang tes gagal hanya karena perubahan kecil dalam implementasi. Namun, dari apa yang disebutkan oleh pembicara kuliah kemarin, unit test akan menghemat waktu dalam jangka panjang dan membayar kembali waktu yang dibutuhkan di awal.
+
+### Berapa banyak unit test yang harus dibuat dalam satu class?
+Tidak ada jumlah yang tetap karena ini bergantung pada kompleksitas class tersebut. Namun, good practice-nya adalah memiliki setidaknya satu tes per metode dan tambahan untuk berbagai skenario, seperti:
+- Kasus normal => Input yang sesuai harapan.
+- Edge cases => Nilai minimum/maksimum, input kosong.
+- Kasus error => Input tidak valid, pengecualian (exception).
+
+### Bagaimana memastikan unit test sudah mencukupi?
+Dengan melihat code coverage, yaitu metrik untuk mengukur seberapa banyak dan luas cakupan kode yang diuji. Tools seperti SonarQube dapat menunjukkan baris/cabang kode mana yang sudah dieksekusi oleh tes serta memberikan analisis kualitas kode secara keseluruhan.
+Jenis code coverage meliputi:
+- Line coverage => Persentase baris kode yang dieksekusi.
+- Branch coverage => Memastikan semua kondisi if/else diuji.
+- Path coverage => Menguji semua jalur eksekusi yang mungkin.
+
+### Apakah 100% code coverage berarti tidak ada bug atau error?
+Tidak. 100% coverage hanya berarti setiap baris kode dieksekusi, tetapi tidak menjamin kebenaran fungsionalitasnya.
+
+Implementation
+```
+public class ShoppingCart {
+    public double calculateTotal(double price, int quantity) {
+        return price * quantity;
+    }
+}
+```
+
+Unit Test (100% Coverage)
+```
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class ShoppingCartTest {
+    @Test
+    void testCalculateTotal() {
+        ShoppingCart cart = new ShoppingCart();
+        assertEquals(20.0, cart.calculateTotal(10.0, 2));
+    }
+}
+```
+Semua line dieksekusi, sehingga test tersebut memiliki 100% coverage.
+Tapi, code masih memiliki bug karena tidak mempertimbangkan beberapa edge case:
+- Negative quantity: cart.calculateTotal(10.0, -2);
+- Zero quantity: cart.calculateTotal(10.0, 0);
+- Floating-point: cart.calculateTotal(0.1, 3);
+
+Tes yang baik harus mencakup:
+- Assertions untuk memverifikasi perilaku yang diharapkan.
+- Skenario user yang realistis.
+- Penanganan edge case dengan baik.
+
+## 2. Kebersihan & Reusability dalam Functional Test
+### Apa yang terjadi jika kita membuat test suite baru dengan setup yang mirip?
+- Jika test class baru menduplikasi kode setup, maka kode menjadi lebih sulit untuk dipelihara.
+- Redundansi ini melanggar prinsip DRY (Don't Repeat Yourself).
+
+### Bagaimana dampaknya terhadap kualitas kode?
+- Meningkatkan biaya pemeliharaan, jika setup perlu diubah, kita harus memperbarui di banyak tempat.
+- Menurunkan readability, kode yang berulang membuat sulit melihat apa yang sebenarnya diuji.
+- Meningkatkan risiko inkonsistensi, jika satu setup diperbarui tetapi yang lain tidak, hasil tes bisa berbeda.
+
+### Apa perbaikan yang mungkin agar membuat kode lebih bersih?
+- Membuat BaseFunctionalTest agar setup tidak berulang dan meng-extend base class untuk test case yang lebih spesifik
+- Menggunakan helper methods
+- Menggunakan parameterized tests
