@@ -38,4 +38,9 @@ public class ProductServiceImpl implements ProductService {
     public Product findById(String id) {
         return productRepository.findById(id).orElse(null); // Use repository instead of local list
     }
+
+    @Override
+    public boolean deleteProduct(String id) {
+        return productRepository.deleteById(id);
+    }
 }
