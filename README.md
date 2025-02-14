@@ -109,7 +109,7 @@ Manfaatnya:
 ---
 
 ## --- Refleksi 2 ---
-## > 1. Menulis Unit Test & Code Coverage
+## 1. Menulis Unit Test & Code Coverage
 ### Bagaimana perasaanmu setelah menulis unit test?
 - Unit testing memberikan kepercayaan diri bahwa setiap komponen program bekerja sesuai harapan.
 - Menulis unit test membantu memahami program lebih dalam dan berpikir tentang edge case yang mungkin akan terjadi.
