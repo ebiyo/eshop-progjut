@@ -52,4 +52,13 @@ public class ProductController {
         return "redirect:/product/list";
     }
 
+    @GetMapping("/delete/{productId}")
+    public String deleteProduct(@PathVariable("productId") String id) {
+        boolean deleted = service.deleteProduct(id);
+        if (!deleted) {
+            return "redirect:/product/list?error=notfound"; // Handle case where product isn't found
+        }
+        return "redirect:/product/list";
+    }
+
 }
