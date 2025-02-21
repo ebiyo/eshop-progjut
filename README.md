@@ -1,5 +1,30 @@
-## --- Refleksi 1 ---
-## > Clean code practices yang diimplementasikan:
+Nama : Arief Ridzki Darmawan
+
+NPM : 2306210115
+
+Kelas : A
+
+---
+## Refleksi - Modul 2
+### > Potongan kode yang mengalami isu:
+#### Unnecessary modifier 'public' on method 'create': the method is declared in an interface type
+```
+public Product create(Product product);
+public List<Product> findAll();
+public Product update(Product product);
+public Product findById(String id);
+public boolean deleteProduct(String id);
+```
+Cara saya mengatasi isu ini hanyalah dengan menghapus modifier 'public' pada method-method di ProductService.java karena field secara otomatis dianggap public static final pada interfaces and annotations dan public abstract pada sebuah method.
+
+### > Apakah implementasi workflow CI/CD sekarang masuk ke dalam definisi CI dan CD?
+Tidak secara sepenuhnya, karena implementasi saya belum mencakup beberapa aspek penting dari CI/CD, terutama dalam Continuous Deployment. Saya sudah menerapkan CI dengan `ci.yml` untuk otomatisasi testing. Saya juga memiliki Dockerfile untuk deployment, namun workflow deployment ini masih berjalan secara independen tanpa pipeline yang mengintegrasikan build, push, dan deployment otomatis. Selain itu, belum ada mekanisme rollback dan monitoring, yang penting untuk memastikan sistem tetap stabil setelah deployment.
+
+<details>
+<summary>Modul 1</summary>
+    
+## Refleksi 1 - Modul 1
+### > Clean code practices yang diimplementasikan:
 ### 1.) Struktur package yang mengikuti konvensi Spring Boot
 - Menggunakan struktur controller, service, repository, dan model membantu dalam memisahkan tanggung jawab (separation of concerns).
 - Memudahkan pengelolaan dan perawatan kode dalam jangka panjang.
@@ -108,7 +133,7 @@ Manfaatnya:
 
 ---
 
-## --- Refleksi 2 ---
+## Refleksi 2 - Modul 1
 ## 1. Menulis Unit Test & Code Coverage
 ### Bagaimana perasaanmu setelah menulis unit test?
 - Unit testing memberikan kepercayaan diri bahwa setiap komponen program bekerja sesuai harapan.
@@ -178,3 +203,4 @@ Tes yang baik harus mencakup:
 - Membuat BaseFunctionalTest agar setup tidak berulang dan meng-extend base class untuk test case yang lebih spesifik
 - Menggunakan helper methods
 - Menggunakan parameterized tests
+</details>
