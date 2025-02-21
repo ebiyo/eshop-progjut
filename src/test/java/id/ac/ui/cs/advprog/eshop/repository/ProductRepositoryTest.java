@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Iterator;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,6 +17,7 @@ class ProductRepositoryTest {
 
     @InjectMocks
     ProductRepository productRepository;
+
     @BeforeEach
     void setUp() {
     }
@@ -64,5 +65,100 @@ class ProductRepositoryTest {
         savedProduct = productIterator.next();
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testCreateWithoutId() {
+        Product product = new Product();
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+
+        Product savedProduct = productRepository.create(product);
+
+        assertNotNull(savedProduct.getProductId());
+        assertFalse(savedProduct.getProductId().isEmpty());
+    }
+
+    @Test
+    void testCreateWithEmptyId() {
+        Product product = new Product();
+        product.setProductId("");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+
+        Product savedProduct = productRepository.create(product);
+
+        assertNotNull(savedProduct.getProductId());
+        assertFalse(savedProduct.getProductId().isEmpty());
+    }
+
+    @Test
+    void testFindById_Exists() {
+        Product product = new Product();
+        product.setProductId("test-id");
+        product.setProductName("Test Product");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Optional<Product> found = productRepository.findById("test-id");
+
+        assertTrue(found.isPresent());
+        assertEquals("Test Product", found.get().getProductName());
+    }
+
+    @Test
+    void testFindById_DoesNotExist() {
+        Optional<Product> found = productRepository.findById("non-existent-id");
+        assertFalse(found.isPresent());
+    }
+
+    @Test
+    void testUpdate_Success() {
+        Product product = new Product();
+        product.setProductId("test-id");
+        product.setProductName("Original Name");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId("test-id");
+        updatedProduct.setProductName("Updated Name");
+        updatedProduct.setProductQuantity(200);
+
+        Product result = productRepository.update(updatedProduct);
+
+        assertNotNull(result);
+        assertEquals("Updated Name", result.getProductName());
+        assertEquals(200, result.getProductQuantity());
+    }
+
+    @Test
+    void testUpdate_ProductNotFound() {
+        Product nonExistentProduct = new Product();
+        nonExistentProduct.setProductId("non-existent-id");
+        nonExistentProduct.setProductName("Test Name");
+
+        Product result = productRepository.update(nonExistentProduct);
+
+        assertNull(result);
+    }
+
+    @Test
+    void testDeleteById_Success() {
+        Product product = new Product();
+        product.setProductId("test-id");
+        product.setProductName("Test Product");
+        productRepository.create(product);
+
+        boolean deleted = productRepository.deleteById("test-id");
+
+        assertTrue(deleted);
+        assertFalse(productRepository.findById("test-id").isPresent());
+    }
+
+    @Test
+    void testDeleteById_NonExistent() {
+        boolean deleted = productRepository.deleteById("non-existent-id");
+        assertFalse(deleted);
     }
 }
