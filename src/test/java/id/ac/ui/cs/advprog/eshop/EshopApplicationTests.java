@@ -10,4 +10,10 @@ class EshopApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    void main() {
+        // Test the main method by calling it with null args
+        // This ensures the method can be called without throwing exceptions
+        EshopApplication.main(new String[]{});
+    }
 }
