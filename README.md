@@ -5,6 +5,34 @@ NPM : 2306210115
 Kelas : A
 
 ---
+## Refleksi - Modul 3
+### > Prinsip SOLID yang dipakai:
+#### 1.) SRP
+Saya memisah `CarController` dari `ProductController` agar tiap controller mempunyai tugas masing-masing.
+#### 2.) OCP
+-
+#### 3.) LSP
+-
+#### 4.) ISP
+`CarServiceImpl` dan `ProductServiceImpl` mengimplementasi semua method dari interface masing-masing.
+#### 5.) DIP
+Saya mengubah `CarController` agar menggunakan interface `CarService` dibanding langsung menggunakan `CarServiceImpl`.
+
+### > Keuntungan SOLID pada project:
+- Membuat kode menjadi lebih readable dan lebih mudah dimengerti
+Contohnya CarController dan ProductController yang berada di file berbeda sehingga memudahkan kita dan orang lain untuk mencari dan memperbaiki bug.
+- Mengurangi dependensi modul level tinggi dari modul level rendah
+Contohnya CarController yang bergantung pada interface CarService dibanding CarServiveImpl yang dapat menyebabkan tight coupling.
+
+### > Kelemahan jika tidak mengimplementasi SOLID pada project:
+- Menyulitkan kita dan orang lain untuk mengerti kode kita
+Contohnya banyak controller yang berada dalam satu file akan membingungkan kita dan memakan waktu untuk mencari dan memperbaiki kode yang bermasalah.
+- Menyulitkan kita jika mengganti potongan kode
+Contohnya kita mungkin harus mengubah CarController juga setelah mengubah ProductController karena CarController meng-extend ProductContoller yang akan menambah pekerjaan kita.
+
+<details>
+<summary>Modul 2</summary>
+    
 ## Refleksi - Modul 2
 ### > Potongan kode yang mengalami isu:
 #### Unnecessary modifier 'public' on method 'create': the method is declared in an interface type
@@ -19,6 +47,7 @@ Cara saya mengatasi isu ini hanyalah dengan menghapus modifier 'public' pada met
 
 ### > Apakah implementasi workflow CI/CD sekarang masuk ke dalam definisi CI dan CD?
 Tidak secara sepenuhnya, karena implementasi saya belum mencakup beberapa aspek penting dari CI/CD, terutama dalam Continuous Deployment. Saya sudah menerapkan CI dengan `ci.yml` untuk otomatisasi testing. Saya juga memiliki Dockerfile untuk deployment, namun workflow deployment ini masih berjalan secara independen tanpa pipeline yang mengintegrasikan build, push, dan deployment otomatis. Selain itu, belum ada mekanisme rollback dan monitoring, yang penting untuk memastikan sistem tetap stabil setelah deployment.
+</details>
 
 <details>
 <summary>Modul 1</summary>
