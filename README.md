@@ -20,14 +20,18 @@ Saya mengubah `CarController` agar menggunakan interface `CarService` dibanding 
 
 ### > Keuntungan SOLID pada project:
 - Membuat kode menjadi lebih readable dan lebih mudah dimengerti
+  
 Contohnya CarController dan ProductController yang berada di file berbeda sehingga memudahkan kita dan orang lain untuk mencari dan memperbaiki bug.
 - Mengurangi dependensi modul level tinggi dari modul level rendah
+
 Contohnya CarController yang bergantung pada interface CarService dibanding CarServiveImpl yang dapat menyebabkan tight coupling.
 
 ### > Kelemahan jika tidak mengimplementasi SOLID pada project:
 - Menyulitkan kita dan orang lain untuk mengerti kode kita
+
 Contohnya banyak controller yang berada dalam satu file akan membingungkan kita dan memakan waktu untuk mencari dan memperbaiki kode yang bermasalah.
 - Menyulitkan kita jika mengganti potongan kode
+
 Contohnya kita mungkin harus mengubah CarController juga setelah mengubah ProductController karena CarController meng-extend ProductContoller yang akan menambah pekerjaan kita.
 
 <details>
