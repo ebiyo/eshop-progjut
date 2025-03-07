@@ -5,6 +5,26 @@ NPM : 2306210115
 Kelas : A
 
 ---
+## Refleksi - Modul 4
+### > Apakah flow TDD ini cukup berguna? Jika tidak, apa yang harus saya lakukan saat membuat lebih banyak test nanti?
+Menurut saya, flow TDD berguna agar saya mengimplementasikan hal-hal yang hanya dibutuhkan untuk lolos test saja, sehingga saya tidak membuang waktu dengan menulis lebih banyak kode dari apa yang dibutuhkan. Hal yang dapat saya lakukan jika membuat lebih banyak test nantinya adalah menambahkan lebih banyak edge case dan refactoring test agar lebih efisien.
+
+### > Apakah test saya mengikuti prinsip F.I.R.S.T? Jika tidak, apa yang harus saya lakukan saat membuat lebih banyak test nanti?
+Ya, test saya mengikuti prinsip F.I.R.S.T.
+* Fast
+Saya menggunakan mock dan test juga berjalan dengan cepat.
+* Independent
+Setiap test tidak bergantung pada test lain.
+* Repeatable
+Test tidak memerlukan sistem lain, sehingga dapat diulang-ulang.
+* Self-validating
+Test memberi umpan balik langsung berupa apakah test berhasil atau tidak, bukan hasil test yang harus di-cek secara manual.
+* Timely
+Test dibuat sebelum kode dibuat dan menelusuri semua happy/unhappy path.
+
+<details>
+<summary>Modul 3</summary>
+  
 ## Refleksi - Modul 3
 ### > Prinsip SOLID yang dipakai:
 #### 1.) SRP
@@ -33,6 +53,7 @@ Contohnya banyak controller yang berada dalam satu file akan membingungkan kita 
 - Menyulitkan kita jika mengganti potongan kode
 
 Contohnya kita mungkin harus mengubah CarController juga setelah mengubah ProductController karena CarController meng-extend ProductContoller yang akan menambah pekerjaan kita.
+</details>
 
 <details>
 <summary>Modul 2</summary>
